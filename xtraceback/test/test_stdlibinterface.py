@@ -15,6 +15,14 @@ Exception: exc
 """ % "\n".join(SIMPLE_TRACEBACK.splitlines()[0:2])
 
 
+class NoOpContext(object):
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
+
+
 class StdlibTestMixin(TestCaseMixin):
 
     def setUp(self):
@@ -117,26 +125,35 @@ class TestStdlibInterface(StdlibTestMixin, XTracebackTestCase):
         self.assertEqual(stdlib_exc_str, exc_str)
 
     def test_format_exc(self):
-        with self.compat:
-            try:
-                exec(EXTENDED_TEST, {})
-            except:
-                lines = traceback.format_exc()
+        lines = []
+        for compat in range(2):
+            if compat:
+                ctx = self.compat
             else:
-                self.fail("Should have raised exception")
-        self.assertEqual(traceback.format_exc(), lines)
+                ctx = NoOpContext()
+            with ctx:
+                try:
+                    exec(EXTENDED_TEST, {})
+                except:
+                    lines.append(traceback.format_exc())
+                else:
+                    self.fail("Should have raised exception")
+        self.assertEqual(*lines)
 
     def test_print_exc(self):
-        with self.compat:
-            stream = StringIO()
-            try:
-                exec(EXTENDED_TEST, {})
-            except:
-                traceback.print_exc(file=stream)
+        exc_strs = []
+        for compat in range(2):
+            if compat:
+                ctx = self.compat
             else:
-                self.fail("Should have raised exception")
-            exc_str = stream.getvalue()
-        stream = StringIO()
-        traceback.print_exc(file=stream)
-        stdlib_exc_str = stream.getvalue()
-        self.assertEqual(stdlib_exc_str, exc_str)
+                ctx = NoOpContext()
+            with ctx:
+                stream = StringIO()
+                try:
+                    exec(EXTENDED_TEST, {})
+                except:
+                    traceback.print_exc(file=stream)
+                else:
+                    self.fail("Should have raised exception")
+                exc_strs.append(stream.getvalue())
+        self.assertEqual(*exc_strs)
