@@ -115,7 +115,7 @@ EXTENDED_EXCEPTION = \
     g:Something = <class 'xtraceback.test.something.Something'>
     g:SomethingElse = <class 'xtraceback.test.somethingelse.SomethingElse'>
     g:logging = <package 'logging' from='<stdlib>/logging'>
-    g:os = <module 'os' from='<stdlib>/os.pyc'>
+    g:os = <module 'os' from='<stdlib>/os.py'>
     g:sys = <module 'sys' (built-in)>
     10 def one(self):
     11     sugar = max(1, 2)
@@ -129,7 +129,7 @@ EXTENDED_EXCEPTION = \
     g:Something = <class 'xtraceback.test.something.Something'>
     g:SomethingElse = <class 'xtraceback.test.somethingelse.SomethingElse'>
     g:logging = <package 'logging' from='<stdlib>/logging'>
-    g:os = <module 'os' from='<stdlib>/os.pyc'>
+    g:os = <module 'os' from='<stdlib>/os.py'>
     g:sys = <module 'sys' (built-in)>
     13
     14 def two(self, sugar):

@@ -8,6 +8,7 @@ from xtraceback import XTraceback
 
 ID_PATTERN = re.compile("0[xX][a-fA-F0-9]+")
 TRAILING_WHITESPACE_PATTERN = re.compile(" \n")
+PYEXT_PATTERN = re.compile(r"\.py[oc]?\b")
 
 TB_DEFAULTS = dict(address="0x123456789")
 
@@ -43,6 +44,7 @@ class XTracebackTestCase(TestCaseMixin, unittest.TestCase):
         # stripping trailing whitespace that gets added when we have an empty
         # line
         exc_str = TRAILING_WHITESPACE_PATTERN.sub("\n", exc_str)
+        exc_str = PYEXT_PATTERN.sub(".py", exc_str)
         if exc_str != expect_exc_str:  # pragma: no cover for obvious reasons
             diff = difflib.ndiff(expect_exc_str.splitlines(True),
                                  exc_str.splitlines(True))
