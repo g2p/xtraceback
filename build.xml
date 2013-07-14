@@ -2,7 +2,7 @@
 <project name="xtraceback" default="test">
 
   <!--
-    easy_install nose coverage pylint clonedigger sphinx
+    easy_install six nose coverage pylint clonedigger sphinx
   -->
 
   <target name="clean">

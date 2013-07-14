@@ -19,6 +19,7 @@ setup(name="xtraceback",
       url="https://github.com/ischium/xtraceback",
       packages=("xtraceback",),
       py_modules=("nosextraceback",),
+      install_require=("six",),
       tests_require=("nose", "pygments", "yanc"),
       test_suite="nose.collector",
       entry_points={
