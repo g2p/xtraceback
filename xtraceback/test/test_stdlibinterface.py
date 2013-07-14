@@ -1,4 +1,4 @@
-from StringIO import StringIO
+from six import StringIO
 import sys
 import traceback
 
@@ -119,7 +119,7 @@ class TestStdlibInterface(StdlibTestMixin, XTracebackTestCase):
     def test_format_exc(self):
         with self.compat:
             try:
-                exec EXTENDED_TEST in {}
+                exec(EXTENDED_TEST, {})
             except:
                 lines = traceback.format_exc()
             else:
@@ -130,7 +130,7 @@ class TestStdlibInterface(StdlibTestMixin, XTracebackTestCase):
         with self.compat:
             stream = StringIO()
             try:
-                exec EXTENDED_TEST in {}
+                exec(EXTENDED_TEST, {})
             except:
                 traceback.print_exc(file=stream)
             else:

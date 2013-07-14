@@ -2,6 +2,7 @@ import sys
 import traceback
 
 from .xtraceback import XTraceback
+import six
 
 
 class StdlibCompatMeta(type):
@@ -13,7 +14,7 @@ class StdlibCompatMeta(type):
         super(StdlibCompatMeta, mcs).__init__(name, bases, dict_)
 
 
-class StdlibCompat(object):
+class StdlibCompat(six.with_metaclass(StdlibCompatMeta, object)):
     """
     Provides interface compatibility with the stdlib traceback module
 
@@ -21,8 +22,6 @@ class StdlibCompat(object):
                     instance
     :type defaults: dict
     """
-
-    __metaclass__ = StdlibCompatMeta
 
     _patch_stack = []
     _traceback_patch_functions = []

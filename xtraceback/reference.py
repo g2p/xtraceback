@@ -25,7 +25,7 @@ class Marker(object):
     def __repr__(self):
         frame = sys._getframe(1)
         while frame:
-            if frame.f_code == self.xtb._format_variable.func_code:
+            if frame.f_code == self.xtb._format_variable.__code__:
                 indent = frame.f_locals["indent"] + 4
                 break
             frame = frame.f_back

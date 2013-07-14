@@ -1,4 +1,4 @@
-from StringIO import StringIO
+from six import StringIO
 import sys
 import traceback
 
@@ -74,7 +74,7 @@ class TestStdlibCompat(XTracebackTestCase):
 
     def test_format_exc(self):
         try:
-            exec BASIC_TEST in {}
+            exec(BASIC_TEST, {})
         except:
             exc_str = traceback.format_exc()
         else:
@@ -84,7 +84,7 @@ class TestStdlibCompat(XTracebackTestCase):
     def test_print_exc(self):
         stream = StringIO()
         try:
-            exec BASIC_TEST in {}
+            exec(BASIC_TEST, {})
         except:
             traceback.print_exc(file=stream)
         else:
@@ -95,7 +95,7 @@ class TestStdlibCompat(XTracebackTestCase):
         self.compat.install_sys_excepthook()
         self.assertEqual(sys.excepthook, traceback.print_exception)
         try:
-            exec BASIC_TEST in {}
+            exec(BASIC_TEST, {})
         except:
             exc_info = self._get_exc_info(BASIC_TEST)
             lines = traceback.format_exception(*exc_info)

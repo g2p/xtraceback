@@ -32,7 +32,7 @@ class XTracebackTestCase(TestCaseMixin, unittest.TestCase):
 
     def _get_exc_info(self, exec_str, **namespace):
         try:
-            exec exec_str in namespace
+            exec(exec_str, namespace)
         except:
             return sys.exc_info()
         else:
@@ -46,15 +46,15 @@ class XTracebackTestCase(TestCaseMixin, unittest.TestCase):
         if exc_str != expect_exc_str:  # pragma: no cover for obvious reasons
             diff = difflib.ndiff(expect_exc_str.splitlines(True),
                                  exc_str.splitlines(True))
-            print "-" * 70
-            print "want:"
-            print expect_exc_str
-            print "-" * 70
-            print "got:"
-            print exc_str
-            print "-" * 70
-            print "diff:"
-            print "".join(diff)
+            print("-" * 70)
+            print("want:")
+            print(expect_exc_str)
+            print("-" * 70)
+            print("got:")
+            print(exc_str)
+            print("-" * 70)
+            print("diff:")
+            print("".join(diff))
             self.fail("different")
 
     def _assert_tb_lines(self, exc_lines, expect_lines):

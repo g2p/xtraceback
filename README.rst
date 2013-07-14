@@ -40,7 +40,7 @@ As a context manager - the stdlib traceback module is monkey patched::
 As a sys.excepthook::
 
     >>> xtraceback.compat.install_sys_excepthook()
-    >>> print sys.excepthook #doctest: +ELLIPSIS
+    >>> print(sys.excepthook) #doctest: +ELLIPSIS
     <bound method StdlibCompat.print_exception of <xtraceback.stdlibcompat.StdlibCompat object at 0x...>>
     >>> raise Exception("exc") #doctest: +ELLIPSIS
     Traceback (most recent call last):
@@ -55,7 +55,7 @@ By itself::
     >>> try:
     ...     raise Exception("exc")
     ... except:
-    ...     print xtraceback.XTraceback(*sys.exc_info(), color=False) #doctest: +ELLIPSIS
+    ...     print(xtraceback.XTraceback(*sys.exc_info(), color=False)) #doctest: +ELLIPSIS
     Traceback (most recent call last):
       File "<doctest README.rst[...]>", line 2, in <module>
         1 try:
@@ -65,7 +65,7 @@ By itself::
               g:traceback = <module 'traceback' from='<stdlib>/traceback.pyc'>
               g:xtraceback = <package 'xtraceback' from='xtraceback'>
         3 except:
-        4     print xtraceback.XTraceback(*sys.exc_info(), color=False) #doctest: +ELLIPSIS
+        4     print(xtraceback.XTraceback(*sys.exc_info(), color=False)) #doctest: +ELLIPSIS
     Exception: exc
     <BLANKLINE>
 

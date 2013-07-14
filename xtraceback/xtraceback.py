@@ -3,6 +3,9 @@ import os
 import pprint
 import struct
 import warnings
+from six.moves import map
+from six.moves import zip
+from six import string_types
 
 try:
     import fcntl
@@ -174,7 +177,7 @@ class XTraceback(object):
 
     def _format_variable(self, key, value, indent=4, prefix="", separator=" = "):
         base_size = indent + len(prefix) + len(key) + len(separator)
-        if isinstance(value, basestring) and len(value) > self.print_width * 2:
+        if isinstance(value, string_types) and len(value) > self.print_width * 2:
             # truncate long strings - minus 2 for the quotes and 3 for the ellipsis
             value = value[:self.print_width - base_size - 2 - 3] + "..."
         vtype = type(value)
